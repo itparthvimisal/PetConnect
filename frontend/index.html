@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PetConnect | Home</title>
+  <meta name="description" content="PetConnect connects people with lost, found, rescued and adoptable animals.">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a href="#home" class="brand" data-route="home">
+      <img src="images/logo.svg" alt="" width="30" height="30">
+      <span>PetConnect</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" data-route="home">Home</a></li>
+      <li><a href="#lost" data-route="lost">Lost Pets</a></li>
+      <li><a href="#found" data-route="found">Found Pets</a></li>
+      <li><a href="#report" data-route="report">Report Pet</a></li>
+      <li><a href="#adoption" data-route="adoption">Adoption</a></li>
+      <li><a href="#library" data-route="library">Library</a></li>
+      <li><a href="#marketplace" data-route="marketplace">Marketplace</a></li>
+      <li><a href="#contact" data-route="contact">Contact &amp; Help</a></li>
+      <li class="nav-auth">
+        <button class="btn btn-outline-light" id="authBtn" type="button">Login / Sign Up</button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<div class="offline-banner" id="offlineBanner" hidden>
+  The server isn't running, so you're seeing sample data. Start the Flask back end (<code>python app.py</code>) to use logins and reports.
+</div>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<section class="page" id="page-home">
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>Welcome to PetConnect</h1>
+      <p>Connecting people with lost, found, rescued and adoptable animals.</p>
+      <p>Together, we can create a safer and more caring community for animals.</p>
+      <div class="hero-actions">
+        <a href="#lost" class="btn btn-white" data-route="lost">🔎 Find a Lost Pet</a>
+        <a href="#report" class="btn btn-green" data-route="report">📝 Report a Pet</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title center">What would you like to do?</h2>
+    <div class="action-grid">
+      <a class="action-card" href="#lost"><span class="ico">🔎</span><h3>Find a lost pet</h3><p>Search reports from owners near you.</p></a>
+      <a class="action-card" href="#found"><span class="ico">🐕</span><h3>See found animals</h3><p>Check if someone has found your pet.</p></a>
+      <a class="action-card" href="#report"><span class="ico">📝</span><h3>Report a pet</h3><p>Post a lost or found animal with a photo and location.</p></a>
+      <a class="action-card" href="#adoption"><span class="ico">🏡</span><h3>Adopt a pet</h3><p>Meet animals from shelters waiting for a home.</p></a>
+      <a class="action-card" href="#library"><span class="ico">📚</span><h3>Learn pet care</h3><p>Guides on safety, health and animal welfare.</p></a>
+      <a class="action-card" href="#marketplace"><span class="ico">🛍️</span><h3>Shop supplies</h3><p>Food, toys, ID tags and everyday essentials.</p></a>
+    </div>
+
+    <div class="stats" id="stats">
+      <div><strong id="statLost">–</strong><span>Pets reported lost</span></div>
+      <div><strong id="statFound">–</strong><span>Animals reported found</span></div>
+      <div><strong id="statReunited">–</strong><span>Families reunited</span></div>
+      <div><strong id="statMembers">–</strong><span>Community members</span></div>
+    </div>
+
+    <div class="row-head">
+      <h2 class="section-title">Latest reports</h2>
+      <a href="#lost" class="link">See all lost pets</a>
+    </div>
+    <div class="card-grid" id="homeRecent"></div>
+  </div>
+
+  <div class="awareness">
+    <div class="container">
+      <h2 class="section-title center">Animal awareness</h2>
+      <div class="tips">
+        <article><h3>Add an ID tag and microchip</h3><p>A collar tag with your phone number and a registered microchip are the fastest ways to get a lost pet home.</p></article>
+        <article><h3>Keep recent photos</h3><p>Clear photos from the front and side, plus any markings, make a report far easier to match.</p></article>
+        <article><h3>Found an animal?</h3><p>Stay calm, keep it safe, take a photo and post it here. Then check with a nearby vet for a microchip scan.</p></article>
+        <article><h3>Adopt, don't abandon</h3><p>Pets need years of time, food and care. If you can't keep one, contact a shelter instead of leaving it behind.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOST PETS ================= -->
+<section class="page" id="page-lost" hidden>
+  <div class="container">
+    <header class="page-head">
+      <h1>Lost pets</h1>
+      <p>Search reports posted by owners. Recognise an animal? Contact the owner right away.</p>
+    </header>
+    <div class="filters">
+      <input type="search" id="lostSearch" placeholder="Search by name, breed, colour or area" aria-label="Search lost pets">
+      <select id="lostSpecies" aria-label="Animal type">
+        <option>All</option><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option>Other</option>
+      </select>
+    </div>
+    <div class="card-grid" id="lostGrid"></div>
+  </div>
+</section>
+
+<!-- ================= FOUND PETS ================= -->
+<section class="page" id="page-found" hidden>
+  <div class="container">
+    <header class="page-head">
+      <h1>Found pets</h1>
+      <p>Animals that people have found or rescued. If one looks like yours, get in touch with the finder.</p>
+    </header>
+    <div class="filters">
+      <input type="search" id="foundSearch" placeholder="Search by breed, colour or area" aria-label="Search found pets">
+      <select id="foundSpecies" aria-label="Animal type">
+        <option>All</option><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option>Other</option>
+      </select>
+    </div>
+    <div class="card-grid" id="foundGrid"></div>
+  </div>
+</section>
+
+<!-- ================= REPORT PET ================= -->
+<section class="page" id="page-report" hidden>
+  <div class="container narrow">
+    <header class="page-head">
+      <h1>Report a pet</h1>
+      <p>The more detail you add, the easier it is to find a match. Fields marked * are required.</p>
+    </header>
+
+    <form id="reportForm" class="form-card" novalidate>
+      <div class="segmented" role="radiogroup" aria-label="Report type">
+        <label><input type="radio" name="report_type" value="lost" checked><span>I lost a pet</span></label>
+        <label><input type="radio" name="report_type" value="found"><span>I found an animal</span></label>
+      </div>
+
+      <div class="form-grid">
+        <label class="field" id="nameField">Pet's name
+          <input type="text" name="name" placeholder="e.g. Bruno">
+        </label>
+        <label class="field">Animal type *
+          <select name="species" required>
+            <option value="">Choose one</option>
+            <option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option>Other</option>
+          </select>
+        </label>
+        <label class="field">Breed
+          <input type="text" name="breed" placeholder="e.g. Labrador, or 'not sure'">
+        </label>
+        <label class="field">Colour and markings
+          <input type="text" name="color" placeholder="e.g. Golden with a white chest">
+        </label>
+        <label class="field">Where was it <span id="whereWord">lost</span>? *
+          <input type="text" name="location" placeholder="Street, landmark or area" required>
+        </label>
+        <label class="field">Date
+          <input type="date" name="event_date">
+        </label>
+        <label class="field">Your name
+          <input type="text" name="contact_name" placeholder="How should people address you?">
+        </label>
+        <label class="field">Phone number
+          <input type="tel" name="contact_phone" placeholder="So people can reach you">
+        </label>
+        <label class="field full">Description
+          <textarea name="description" rows="4" placeholder="Collar, behaviour, injuries, microchip, anything that helps identify the animal."></textarea>
+        </label>
+        <div class="field full">
+          <span>Photo</span>
+          <label class="upload" for="photoInput">
+            <input type="file" id="photoInput" name="photo" accept="image/*">
+            <img id="photoPreview" alt="Preview of the selected photo" hidden>
+            <span id="photoHint">Tap to choose a clear photo (JPG, PNG or WEBP, up to 5 MB)</span>
+          </label>
+        </div>
+      </div>
+
+      <p class="form-msg" id="reportMsg" role="status"></p>
+      <button class="btn btn-green btn-lg" type="submit">Submit report</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= ADOPTION ================= -->
+<section class="page" id="page-adoption" hidden>
+  <div class="container">
+    <header class="page-head">
+      <h1>Adopt a pet</h1>
+      <p>These animals are ready for a loving home. Every adoption makes room for another rescue.</p>
+    </header>
+    <div class="chips" id="adoptChips" role="group" aria-label="Filter by animal">
+      <button class="chip active" data-species="All">All</button>
+      <button class="chip" data-species="Dog">Dogs</button>
+      <button class="chip" data-species="Cat">Cats</button>
+      <button class="chip" data-species="Rabbit">Rabbits</button>
+    </div>
+    <div class="card-grid" id="adoptGrid"></div>
+  </div>
+</section>
+
+<!-- ================= LIBRARY ================= -->
+<section class="page" id="page-library" hidden>
+  <div class="container">
+    <header class="page-head">
+      <h1>Animal awareness library</h1>
+      <p>Short, practical guides on responsible pet care, animal welfare and safety.</p>
+    </header>
+    <div class="chips" id="libChips" role="group" aria-label="Filter by topic"></div>
+    <div class="lib-grid" id="libGrid"></div>
+  </div>
+</section>
+
+<!-- ================= MARKETPLACE ================= -->
+<section class="page" id="page-marketplace" hidden>
+  <div class="container">
+    <header class="page-head with-action">
+      <div>
+        <h1>Marketplace</h1>
+        <p>Everyday essentials for happy, safe pets.</p>
+      </div>
+      <button class="btn btn-dark" id="cartBtn" type="button"><span>🛒 Cart (<span id="cartCount">0</span>)</span></button>
+    </header>
+    <div class="chips" id="shopChips" role="group" aria-label="Filter by category"></div>
+    <div class="card-grid product-grid" id="shopGrid"></div>
+  </div>
+</section>
+
+<!-- ================= CONTACT & HELP ================= -->
+<section class="page" id="page-contact" hidden>
+  <div class="container">
+    <header class="page-head">
+      <h1>Contact &amp; help</h1>
+      <p>Questions, feedback or need a hand with a report? We're here.</p>
+    </header>
+    <div class="contact-layout">
+      <form id="contactForm" class="form-card" novalidate>
+        <label class="field">Your name *<input type="text" name="name" required></label>
+        <label class="field">Email *<input type="email" name="email" required></label>
+        <label class="field">Subject<input type="text" name="subject"></label>
+        <label class="field">Message *<textarea name="message" rows="5" required></textarea></label>
+        <p class="form-msg" id="contactMsg" role="status"></p>
+        <button class="btn btn-green btn-lg" type="submit">Send message</button>
+      </form>
+
+      <div>
+        <h2 class="section-title">Common questions</h2>
+        <details class="faq"><summary>I lost my pet. What should I do first?</summary><p>Search the area right away, post a report with a clear photo and location, tell neighbours, and call nearby vets and shelters.</p></details>
+        <details class="faq"><summary>I found an animal. Is it safe to keep it?</summary><p>Keep it safe and calm for now, take a photo, post a found report and ask a vet to scan for a microchip. Don't feed unfamiliar food to an injured animal.</p></details>
+        <details class="faq"><summary>How do I close my report?</summary><p>Log in, open your report and choose "Mark as reunited" once your pet is home.</p></details>
+        <details class="faq"><summary>Is PetConnect free?</summary><p>Yes. Reporting, searching and adoption listings are free for everyone.</p></details>
+        <div class="help-box">
+          <h3>Emergency?</h3>
+          <p>If an animal is injured, contact a local veterinarian or animal rescue helpline immediately. This site is not an emergency service.</p>
+          <p>Email: <a href="mailto:support@petconnect.example">support@petconnect.example</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container foot">
+    <div><strong>🐾 PetConnect</strong><p>Reuniting pets with their families and promoting compassion for animals.</p></div>
+    <div class="foot-links">
+      <a href="#lost">Lost Pets</a><a href="#found">Found Pets</a><a href="#adoption">Adoption</a><a href="#library">Library</a><a href="#contact">Contact &amp; Help</a>
+    </div>
+  </div>
+  <p class="copy">© 2026 PetConnect. Built as a community project.</p>
+</footer>
+
+<!-- ================= DIALOGS ================= -->
+<dialog id="authDialog" class="dialog">
+  <form method="dialog" class="dialog-close"><button aria-label="Close">✕</button></form>
+  <div class="segmented" role="tablist">
+    <label><input type="radio" name="authmode" value="login" checked><span>Login</span></label>
+    <label><input type="radio" name="authmode" value="signup"><span>Sign up</span></label>
+  </div>
+  <form id="authForm" novalidate>
+    <label class="field" id="authNameField" hidden>Full name<input type="text" name="name" autocomplete="name"></label>
+    <label class="field">Email<input type="email" name="email" autocomplete="email" required></label>
+    <label class="field">Password<input type="password" name="password" autocomplete="current-password" minlength="6" required></label>
+    <p class="form-msg" id="authMsg" role="status"></p>
+    <button class="btn btn-green btn-block" type="submit" id="authSubmit">Log in</button>
+  </form>
+</dialog>
+
+<dialog id="infoDialog" class="dialog">
+  <form method="dialog" class="dialog-close"><button aria-label="Close">✕</button></form>
+  <div id="infoBody"></div>
+</dialog>
+
+<dialog id="cartDialog" class="dialog">
+  <form method="dialog" class="dialog-close"><button aria-label="Close">✕</button></form>
+  <h2>Your cart</h2>
+  <div id="cartBody"></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

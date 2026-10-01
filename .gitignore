@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Runtime uploads (keep the folder itself via .gitkeep)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Local database (recreated automatically on first run)
+*.db
